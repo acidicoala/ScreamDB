@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Container, createMuiTheme, CssBaseline, responsiveFontSizes, ThemeOptions, ThemeProvider} from "@material-ui/core";
+import {ScreamAppBar} from "./components/appbar/ScreamAppBar";
+import {ScreamSwitch} from "./components/router/ScreamSwitch";
+import {BrowserRouter as Router} from "react-router-dom";
+import {ContextProviders} from "./context/ContextProviders";
+import {maxWidth} from "./util/storage";
+
+const theme = responsiveFontSizes(
+	createMuiTheme({
+		palette: {
+			type: 'dark',
+			primary: {
+				main: '#2e7d32',
+				contrastText: '#FFF',
+			},
+			secondary: {
+				main: '#FFF',
+			},
+			background: {
+				default: '#303030'
+			}
+		},
+	} as ThemeOptions)
+);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<React.StrictMode>
+			<ThemeProvider theme={theme}>
+				<CssBaseline/>
+				<ContextProviders>
+					<Router>
+						<ScreamAppBar/>
+						<Container maxWidth={maxWidth}>
+							<ScreamSwitch/>
+						</Container>
+					</Router>
+				</ContextProviders>
+			</ThemeProvider>
+		</React.StrictMode>
+	);
 }
 
 export default App;
