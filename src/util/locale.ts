@@ -11,6 +11,14 @@ export const rawLocale = {
 		en: 'Home',
 		ru: 'Домой',
 	},
+	id: {
+		en: 'ID',
+		ru: 'ID',
+	},
+	image: {
+		en: 'Image',
+		ru: 'Изображение',
+	},
 	not_found: {
 		en: 'Page not found',
 		ru: 'Страница не найдена',
@@ -23,4 +31,8 @@ export const rawLocale = {
 		en: 'Settings',
 		ru: 'Настройки',
 	},
+	title: {
+		en: 'Title',
+		ru: 'Название',
+	}
 }

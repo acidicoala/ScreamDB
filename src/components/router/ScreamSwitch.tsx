@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Switch,} from "react-router-dom";
 import {path} from "../../util/paths";
 import {Home} from "../../pages/Home";
-import {Browse} from "../../pages/Browse";
+import {Browse} from "../../pages/browse/Browse";
 import {NotFound} from "../../pages/NotFound";
 
 export function ScreamSwitch() {

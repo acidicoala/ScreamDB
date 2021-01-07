@@ -4,10 +4,13 @@ import React from "react";
 import {useLanguage} from "../../context/language";
 import {KeyboardArrowDown, Translate} from "@material-ui/icons";
 import {useLocale} from "../../hooks/locale";
+import {useXS} from "../../hooks/screen-size";
+import {ValidLanguage} from "../../util/types";
 
 export function LanguagePicker() {
 	const {setLang} = useLanguage()
 	const {locale} = useLocale()
+	const xs = useXS()
 
 	const languages = [
 		{key: 'en', text: rawLocale.lang.en},
@@ -16,11 +19,12 @@ export function LanguagePicker() {
 
 	return (
 		<CustomSelect
+			size={'large'}
 			startIcon={<Translate/>}
 			endIcon={<KeyboardArrowDown/>}
 			items={languages}
-			onItemSelect={item => setLang(item.key)}
-			children={locale.lang}
+			onItemSelect={item => setLang(item.key as ValidLanguage)}
+			children={!xs && locale.lang}
 		/>
 	)
 }

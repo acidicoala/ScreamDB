@@ -5,6 +5,8 @@ import {ScreamSwitch} from "./components/router/ScreamSwitch";
 import {BrowserRouter as Router} from "react-router-dom";
 import {ContextProviders} from "./context/ContextProviders";
 import {maxWidth} from "./util/storage";
+import {OverflowBody} from "./components/util/OverflowBody";
+import {ResponsiveContainer} from "./components/util/ResponsiveContainer";
 
 const theme = responsiveFontSizes(
 	createMuiTheme({
@@ -32,9 +34,11 @@ function App() {
 				<ContextProviders>
 					<Router>
 						<ScreamAppBar/>
-						<Container maxWidth={maxWidth}>
-							<ScreamSwitch/>
-						</Container>
+						<OverflowBody>
+							<ResponsiveContainer>
+								<ScreamSwitch/>
+							</ResponsiveContainer>
+						</OverflowBody>
 					</Router>
 				</ContextProviders>
 			</ThemeProvider>
