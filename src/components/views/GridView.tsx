@@ -1,7 +1,7 @@
-import {GameCardSkeleton} from "../../components/skeletons/GameCardSkeleton";
-import {GameCard} from "../../components/cards/GameCard";
+import {GameCardSkeleton} from "../skeletons/GameCardSkeleton";
+import {GameCard} from "../items/GameCard";
 import {Box, createStyles, makeStyles, useTheme} from "@material-ui/core";
-import {GameItem} from "../../util/types";
+import {BrowseMode, DisplayItem} from "../../util/types";
 
 const useStyles = makeStyles(({breakpoints}) =>
 	createStyles({
@@ -27,9 +27,11 @@ const useStyles = makeStyles(({breakpoints}) =>
 );
 
 export function GridView(props: {
-	items?: GameItem[]
+	items?: DisplayItem[],
+	itemsPerPage: number,
+	mode: BrowseMode,
 }) {
-	const {items} = props
+	const {items,itemsPerPage, mode} = props
 	const classes = useStyles()
 	const {spacing} = useTheme()
 
@@ -37,10 +39,11 @@ export function GridView(props: {
 		<Box className={classes.grid}>{
 			items?.map(it =>
 				<GameCard data={it}
+				          mode={mode}
 				          style={{margin: spacing(2)}}
 				          key={it.id}
 				/>
-			) ?? [...Array(10).keys()].map(it =>
+			) ?? [...Array(itemsPerPage).keys()].map(it =>
 				<GameCardSkeleton style={{margin: spacing(2)}} key={it}/>
 			)
 		}</Box>

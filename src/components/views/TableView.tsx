@@ -1,11 +1,15 @@
-import {GameItem} from "../../util/types";
+import {BrowseMode, DisplayItem} from "../../util/types";
 import {Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import {useLocale} from "../../hooks/locale";
+import {GameRowSkeleton} from "../skeletons/GameRowSkeleton";
+import {GameRow} from "../items/GameRow";
 
 export function TableView(props: {
-	items?: GameItem[]
+	items?: DisplayItem[],
+	itemsPerPage: number,
+	mode: BrowseMode
 }) {
-	const {items} = props
+	const {items, itemsPerPage, mode} = props
 	const {locale} = useLocale()
 
 	return (
@@ -17,20 +21,14 @@ export function TableView(props: {
 							<TableCell>{locale.image}</TableCell>
 							<TableCell>{locale.title}</TableCell>
 							<TableCell>{locale.id}</TableCell>
+							{mode === 'game' && <TableCell>{locale.namespace}</TableCell>}
 						</TableRow>
 					</TableHead>
 					<TableBody>{
 						items?.map(it =>
-							<TableRow key={it.id}>
-								<TableCell>
-									<img src={it.image_url}
-									     alt={it.title}
-									     width={75}
-									     height={100}/>
-								</TableCell>
-								<TableCell>{it.title}</TableCell>
-								<TableCell>{it.id}</TableCell>
-							</TableRow>
+							<GameRow mode={mode} key={it.id} data={it}/>
+						) ?? [...Array(itemsPerPage).keys()].map(it =>
+							<GameRowSkeleton key={it}/>
 						)
 					}</TableBody>
 				</Table>

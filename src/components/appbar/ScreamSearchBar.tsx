@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import {createStyles, Divider, IconButton, InputBase, makeStyles, Paper} from "@material-ui/core";
 import {ArrowForward, Clear, Search} from "@material-ui/icons";
 import {useLocale} from "../../hooks/locale";
+import {useHistory} from "react-router-dom"
+import {path} from "../../util/paths";
+import {useKeywords} from "../../context/keywords";
 
 const useStyles = makeStyles(({breakpoints, spacing}) =>
 	createStyles({
@@ -33,11 +36,15 @@ const useStyles = makeStyles(({breakpoints, spacing}) =>
 
 export function ScreamSearchBar() {
 	const classes = useStyles()
-	const [keywords, setKeywords] = useState('')
+	const [searchQuery, setSearchQuery] = useState('')
 	const {locale} = useLocale()
+	const history = useHistory()
+	const {setKeywords} = useKeywords()
 
 	function onSearch() {
-		console.log(keywords)
+		if (history.location.pathname !== path.to.games)
+			history.push(path.to.games)
+		setKeywords(searchQuery)
 	}
 
 	return (
@@ -45,19 +52,19 @@ export function ScreamSearchBar() {
 			<Search className={classes.iconButton} fontSize={'inherit'} style={{fontSize: '2.5rem'}}/>
 			<InputBase
 				className={classes.input}
-				value={keywords}
-				onChange={event => setKeywords(event.target.value)}
+				value={searchQuery}
+				onChange={event => setSearchQuery(event.target.value)}
 				placeholder={locale.search_games}
 				onKeyPress={event => {
-					if (event.key === 'Enter'){
+					if (event.key === 'Enter') {
 						onSearch()
 						event.preventDefault()
 					}
 				}}
 			/>
 			<IconButton className={classes.iconButton}
-			            onClick={() => setKeywords('')}
-			            disabled={keywords.length === 0}
+			            onClick={() => setSearchQuery('')}
+			            disabled={searchQuery.length === 0}
 			>
 				<Clear/>
 			</IconButton>

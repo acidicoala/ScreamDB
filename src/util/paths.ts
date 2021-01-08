@@ -1,7 +1,7 @@
 export const path = {
 	to: {
 		home: '/',
-		browse: '/browse',
-		settings: '/settings',
+		games: '/games',
+		dlc: (namespace?: any) => `/dlc/${namespace || ''}`,
 	}
 }

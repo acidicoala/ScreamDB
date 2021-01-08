@@ -1,10 +1,9 @@
 import React from 'react';
-import {Container, createMuiTheme, CssBaseline, responsiveFontSizes, ThemeOptions, ThemeProvider} from "@material-ui/core";
+import {createMuiTheme, CssBaseline, responsiveFontSizes, ThemeOptions, ThemeProvider} from "@material-ui/core";
 import {ScreamAppBar} from "./components/appbar/ScreamAppBar";
 import {ScreamSwitch} from "./components/router/ScreamSwitch";
 import {BrowserRouter as Router} from "react-router-dom";
 import {ContextProviders} from "./context/ContextProviders";
-import {maxWidth} from "./util/storage";
 import {OverflowBody} from "./components/util/OverflowBody";
 import {ResponsiveContainer} from "./components/util/ResponsiveContainer";
 
@@ -20,7 +19,7 @@ const theme = responsiveFontSizes(
 				main: '#FFF',
 			},
 			background: {
-				default: '#303030'
+				default: '#2F2F2F'
 			}
 		},
 	} as ThemeOptions)

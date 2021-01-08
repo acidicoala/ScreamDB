@@ -5,7 +5,8 @@ import {
 	Button,
 	ButtonGroup,
 	Container,
-	createStyles, Divider,
+	createStyles,
+	Divider,
 	Hidden,
 	IconButton,
 	makeStyles,
@@ -18,19 +19,14 @@ import {useLocale} from "../../hooks/locale";
 import {useXS} from "../../hooks/screen-size";
 import {ScreamSearchBar} from "./ScreamSearchBar";
 import {LanguagePicker} from "./LanguagePicker";
-import {Settings} from "../settings/Settings";
 import {Link} from "react-router-dom";
 import AnimateHeight from "react-animate-height";
 import {Menu} from "@material-ui/icons";
+import {ScreamLink} from "../util/Link";
+import {useKeywords} from "../../context/keywords";
 
-const useStyles = makeStyles(({breakpoints}) =>
+const useStyles = makeStyles(() =>
 	createStyles({
-		logo: {
-			textDecoration: 'none',
-			'&:hover': {
-				textDecoration: 'underline'
-			}
-		},
 		toolbar: {
 			padding: 0
 		}
@@ -40,17 +36,17 @@ const useStyles = makeStyles(({breakpoints}) =>
 export function ScreamAppBar() {
 	const {locale} = useLocale()
 	const classes = useStyles()
+	const {setKeywords} = useKeywords()
 	const xs = useXS()
 
 	const [open, setOpen] = useState(false)
 
 	const NavButtons = () => (
 		<ButtonGroup variant="text" size={'large'}>{
-			[
-				[path.to.browse, locale.browse],
-			].map(([path, locale]) =>
-				<Button component={Link} to={path} children={locale} key={path}/>
-			)
+			<Button component={Link}
+			        to={path.to.games}
+			        children={locale.browse}
+			        onClick={() => setKeywords('')}/>
 		}</ButtonGroup>
 	)
 
@@ -61,13 +57,9 @@ export function ScreamAppBar() {
 					<Hidden mdUp>
 						<IconButton onClick={() => setOpen(!open)} children={<Menu/>}/>
 					</Hidden>
-					<Typography className={classes.logo}
-					            variant={'h5'}
-					            children={'ScreamDB'}
-					            color={'secondary'}
-					            component={Link}
-					            to={path.to.home}
-					/>
+					<ScreamLink to={path.to.home}>
+						<Typography variant={'h5'} children={'ScreamDB'}/>
+					</ScreamLink>
 					<Box marginX={1}/>
 					<Hidden xsDown children={<NavButtons/>}/>
 					<Box marginX={1}/>

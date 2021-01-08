@@ -2,7 +2,7 @@ import React, {CSSProperties} from "react";
 import {Skeleton} from '@material-ui/lab';
 import {Box} from "@material-ui/core";
 
-export function GameCardSkeleton(props?: { style: CSSProperties }) {
+export function GameCardSkeleton(props?: { style?: CSSProperties }) {
 	return (
 		<div style={props?.style}>
 			<Skeleton variant="rect" width={210} height={280} style={{borderRadius: 4}}/>
