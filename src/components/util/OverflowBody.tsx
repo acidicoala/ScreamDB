@@ -7,7 +7,6 @@ const useStyles = makeStyles(({breakpoints}) =>
 		body: {
 			[breakpoints.up("sm")]: {
 				overflowY: "scroll",
-				WebkitOverflowScrolling: "touch",
 				height: `calc(100vh - 64px)`,
 			},
 		},

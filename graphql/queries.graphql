@@ -1,0 +1,47 @@
+query searchGames($keywords: String!) {
+    Catalog {
+        searchStore(
+            category: "games/edition/base"
+            count: 1000
+            keywords: $keywords
+        ) {
+            elements {
+                id
+                title
+                namespace
+                items {
+                    id
+                    namespace
+                }
+                keyImages {
+                    type
+                    url
+                }
+            }
+        }
+    }
+}
+
+query searchOffers($namespace: String!) {
+    Catalog {
+        catalogOffers(
+            namespace: $namespace
+            params: {
+                count: 1000,
+            }
+        ) {
+            elements {
+                id
+                title
+                offerType
+                items {
+                    id
+                }
+                keyImages {
+                    type
+                    url
+                }
+            }
+        }
+    }
+}

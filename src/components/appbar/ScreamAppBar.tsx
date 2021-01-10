@@ -17,13 +17,13 @@ import {maxWidth} from "../../util/storage";
 import {path} from "../../util/paths";
 import {useLocale} from "../../hooks/locale";
 import {useXS} from "../../hooks/screen-size";
-import {ScreamSearchBar} from "./ScreamSearchBar";
 import {LanguagePicker} from "./LanguagePicker";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import AnimateHeight from "react-animate-height";
 import {Menu} from "@material-ui/icons";
 import {ScreamLink} from "../util/Link";
 import {useKeywords} from "../../context/keywords";
+import {SearchBar} from "../util/SearchBar";
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -34,6 +34,7 @@ const useStyles = makeStyles(() =>
 );
 
 export function ScreamAppBar() {
+	const history = useHistory()
 	const {locale} = useLocale()
 	const classes = useStyles()
 	const {setKeywords} = useKeywords()
@@ -45,10 +46,16 @@ export function ScreamAppBar() {
 		<ButtonGroup variant="text" size={'large'}>{
 			<Button component={Link}
 			        to={path.to.games}
-			        children={locale.browse}
+			        children={locale.browse_games}
 			        onClick={() => setKeywords('')}/>
 		}</ButtonGroup>
 	)
+
+	function onSearch(query: string) {
+		if (history.location.pathname !== path.to.games)
+			history.push(path.to.games)
+		setKeywords(query)
+	}
 
 	return (
 		<AppBar position={xs ? 'static' : 'sticky'}>
@@ -63,7 +70,7 @@ export function ScreamAppBar() {
 					<Box marginX={1}/>
 					<Hidden xsDown children={<NavButtons/>}/>
 					<Box marginX={1}/>
-					<Hidden mdDown children={<ScreamSearchBar/>}/>
+					<Hidden smDown children={<SearchBar placeholder={locale.search_games} onSearch={onSearch}/>}/>
 					<Box flex={1}/>
 					<Box marginX={1}/>
 					<LanguagePicker/>
@@ -74,7 +81,7 @@ export function ScreamAppBar() {
 						<Divider/>
 						<Toolbar>
 							<Box paddingLeft={4} width={'100%'} paddingY={1}>
-								<ScreamSearchBar/>
+								<SearchBar placeholder={locale.search_games} onSearch={onSearch}/>
 								<Box marginY={1}/>
 								<Hidden smUp children={<NavButtons/>}/>
 							</Box>

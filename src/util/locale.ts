@@ -11,6 +11,18 @@ export const rawLocale = {
 		en: 'Copy',
 		ru: 'Скопировать',
 	},
+	browse_games: {
+		en: 'Browse Games',
+		ru: 'Обзор Игр',
+	},
+	clear_all: {
+		en: 'Clear all',
+		ru: 'Убрать все',
+	},
+	filter_by_offer_type: {
+		en: 'Filter by offer type',
+		ru: 'Фильтр по типу контента',
+	},
 	home: {
 		en: 'Home',
 		ru: 'Домой',
@@ -27,13 +39,17 @@ export const rawLocale = {
 		en: 'English',
 		ru: 'Русский',
 	},
+	multiple_items: {
+		en: 'Multiple items',
+		ru: 'Несколько предметов',
+	},
 	namespace: {
 		en: 'Namespace',
 		ru: 'Namespace',
 	},
-	no_dlc: {
-		en: 'No DLCs found',
-		ru: 'Не найдено доп. контента',
+	no_offers: {
+		en: 'No offers found',
+		ru: 'Не найдено дополнительного контента',
 	},
 	no_games: {
 		en: 'No games found',
@@ -43,16 +59,36 @@ export const rawLocale = {
 		en: 'Page not found',
 		ru: 'Страница не найдена',
 	},
+	offer_type: {
+		en: 'Offer type',
+		ru: 'Тип контента',
+	},
+	search_by_id: {
+		en: 'Search by ID',
+		ru: 'Поиск по ID',
+	},
 	search_games: {
 		en: 'Search for games',
 		ru: 'Поиск игр',
+	},
+	select_all: {
+		en: 'Select all',
+		ru: 'Выбрать все',
 	},
 	settings: {
 		en: 'Settings',
 		ru: 'Настройки',
 	},
+	showing_offers: {
+		en: 'Offers for ',
+		ru: 'Контент для ',
+	},
 	title: {
 		en: 'Title',
 		ru: 'Название',
-	}
+	},
+	view: {
+		en: 'View',
+		ru: 'Вид',
+	},
 }

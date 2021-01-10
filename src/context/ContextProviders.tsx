@@ -6,8 +6,10 @@ import {ValidLanguage} from "../util/types";
 
 export function ContextProviders(props: PropsWithChildren<{}>) {
 	let storedLang = readProp('lang', 'en')
-	if (!['en', 'ru'].includes(storedLang))
+	if (!['en', 'ru'].includes(storedLang)) {
 		storedLang = 'en'
+		writeProp('lang', 'en')
+	}
 
 	const [language, setLanguage] = useState<ValidLanguage>(storedLang as ValidLanguage);
 	const langValue = {

@@ -2,24 +2,20 @@ import React from "react";
 import {Route, Switch,} from "react-router-dom";
 import {path} from "../../util/paths";
 import {Home} from "../../pages/Home";
-import {Browse} from "../../pages/Browse";
+import {Games} from "../../pages/Games";
 import {SadFace} from "../util/SadFace";
 import {useLocale} from "../../hooks/locale";
+import {Offers} from "../../pages/Offers";
 
 export function ScreamSwitch() {
 	const {locale} = useLocale()
 
-	const paths: [string | string[] | undefined, JSX.Element, boolean][] = [
-		[path.to.home, <Home/>, true],
-		[[path.to.games, path.to.dlc(':namespace')], <Browse/>, false],
-		[undefined, <SadFace children={locale.not_found}/>, false]
-	]
-
 	return (
 		<Switch>
-			{paths.map(([path, page, exact], index) =>
-				<Route exact={exact} path={path} children={page} key={index}/>
-			)}
+			<Route exact path={path.to.home} children={<Home/>}/>
+			<Route exact path={path.to.games} children={<Games/>}/>
+			<Route exact path={path.to.offers(':namespace')} children={<Offers/>}/>
+			<Route children={<SadFace children={locale.not_found}/>}/>
 		</Switch>
 	)
 }

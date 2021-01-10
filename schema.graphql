@@ -1,0 +1,59 @@
+schema {
+    query: Query
+}
+
+type Query{
+    Catalog: CatalogQuery
+}
+
+type CatalogQuery {
+    searchStore(category: String, count: Int, keywords: String): Elements!
+    catalogOffers(namespace: String!, params: CatalogOffersParams): Elements!
+}
+
+input CatalogOffersParams{
+    count: Int
+}
+
+type Elements {
+    elements: [Element!]!
+}
+
+type Element {
+    id: String!
+    title: String!
+    namespace: String!
+    offerType: OfferType!
+    items: [Item!]!
+    keyImages: [KeyImage!]!
+}
+
+enum OfferType {
+    ADD_ON
+    BASE_GAME
+    BUNDLE
+    EDITION
+    DLC
+    OTHERS
+    UNLOCKABLE
+}
+
+type Item{
+    id: String!
+    title: String!
+    namespace: String!
+}
+
+type KeyImage{
+    type: KeyImageType!
+    url: String
+}
+
+enum KeyImageType{
+    OfferImageTall
+    OfferImageWide
+    Thumbnail
+    CodeRedemption_340x440
+    DieselStoreFrontTall
+    DieselStoreFrontWide
+}

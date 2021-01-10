@@ -5,6 +5,10 @@
   "homepage": "/",
   "type": "module",
   "dependencies": {
+    "@graphql-codegen/cli": "^1.20.0",
+    "@graphql-codegen/typescript": "1.20.0",
+    "@graphql-codegen/typescript-operations": "1.17.13",
+    "@graphql-codegen/typescript-graphql-request": "^3.0.0",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -34,12 +38,25 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "firebase deploy",
-    "eject": "react-scripts eject"
+    "generate-sdk": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "plugins": [
+      "react-hooks"
+    ],
+    "overrides": [
+      {
+        "rules": {
+          "react-hooks/exhaustive-deps": "off"
+        },
+        "files": [
+          "**/*.TS?(X)"
+        ]
+      }
     ]
   },
   "browserslist": {

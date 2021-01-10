@@ -1,10 +1,6 @@
-import React, {useState} from "react";
+import React, {CSSProperties, useState} from "react";
 import {createStyles, Divider, IconButton, InputBase, makeStyles, Paper} from "@material-ui/core";
 import {ArrowForward, Clear, Search} from "@material-ui/icons";
-import {useLocale} from "../../hooks/locale";
-import {useHistory} from "react-router-dom"
-import {path} from "../../util/paths";
-import {useKeywords} from "../../context/keywords";
 
 const useStyles = makeStyles(({breakpoints, spacing}) =>
 	createStyles({
@@ -34,42 +30,42 @@ const useStyles = makeStyles(({breakpoints, spacing}) =>
 	}),
 );
 
-export function ScreamSearchBar() {
+export function SearchBar(props: {
+	placeholder: string
+	onClear?: (query: '') => void
+	onSearch: (query: string) => void
+	style?: CSSProperties
+}) {
+	const {placeholder, onClear, onSearch, style} = props
 	const classes = useStyles()
 	const [searchQuery, setSearchQuery] = useState('')
-	const {locale} = useLocale()
-	const history = useHistory()
-	const {setKeywords} = useKeywords()
-
-	function onSearch() {
-		if (history.location.pathname !== path.to.games)
-			history.push(path.to.games)
-		setKeywords(searchQuery)
-	}
 
 	return (
-		<Paper component="form" className={classes.root}>
+		<Paper component="form" className={classes.root} style={style}>
 			<Search className={classes.iconButton} fontSize={'inherit'} style={{fontSize: '2.5rem'}}/>
 			<InputBase
 				className={classes.input}
 				value={searchQuery}
 				onChange={event => setSearchQuery(event.target.value)}
-				placeholder={locale.search_games}
+				placeholder={placeholder}
 				onKeyPress={event => {
 					if (event.key === 'Enter') {
-						onSearch()
+						onSearch(searchQuery)
 						event.preventDefault()
 					}
 				}}
 			/>
 			<IconButton className={classes.iconButton}
-			            onClick={() => setSearchQuery('')}
 			            disabled={searchQuery.length === 0}
+			            onClick={() => {
+				            onClear?.('')
+				            setSearchQuery('')
+			            }}
 			>
 				<Clear/>
 			</IconButton>
 			<Divider className={classes.divider} orientation="vertical"/>
-			<IconButton className={classes.iconButton} onClick={onSearch}>
+			<IconButton className={classes.iconButton} onClick={() => onSearch(searchQuery)}>
 				<ArrowForward/>
 			</IconButton>
 		</Paper>

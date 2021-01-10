@@ -1,7 +1,5 @@
 import {Container, createStyles, makeStyles} from "@material-ui/core";
-import {maxWidth} from "../../util/storage";
 import {ReactNode} from "react";
-
 
 const useStyles = makeStyles(({breakpoints}) =>
 	createStyles({
@@ -27,7 +25,6 @@ export function ResponsiveContainer(props: { children: ReactNode }) {
 	return (
 		<Container
 			className={classes.container}
-			maxWidth={maxWidth}
 			children={<>{props.children}</>}
 		/>
 	)
