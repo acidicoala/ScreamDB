@@ -2,16 +2,16 @@ schema {
     query: Query
 }
 
-type Query{
+type Query {
     Catalog: CatalogQuery
 }
 
 type CatalogQuery {
-    searchStore(category: String, count: Int, keywords: String): Elements!
+    searchStore(category: String, count: Int, namespace: String, keywords: String, sortBy: String, sortDir: String): Elements!
     catalogOffers(namespace: String!, params: CatalogOffersParams): Elements!
 }
 
-input CatalogOffersParams{
+input CatalogOffersParams {
     count: Int
 }
 
@@ -26,6 +26,8 @@ type Element {
     offerType: OfferType!
     items: [Item!]!
     keyImages: [KeyImage!]!
+    creationDate: String!
+    productSlug: String
 }
 
 enum OfferType {
@@ -38,18 +40,18 @@ enum OfferType {
     UNLOCKABLE
 }
 
-type Item{
+type Item {
     id: String!
     title: String!
     namespace: String!
 }
 
-type KeyImage{
+type KeyImage {
     type: KeyImageType!
     url: String
 }
 
-enum KeyImageType{
+enum KeyImageType {
     OfferImageTall
     OfferImageWide
     Thumbnail

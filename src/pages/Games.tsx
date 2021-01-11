@@ -1,6 +1,6 @@
-import {Box, createStyles, makeStyles, useTheme} from "@material-ui/core";
+import {Box, createStyles, makeStyles, Typography, useTheme} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {GameCardData} from "../util/types";
+import {GameCardData, ValidSortDirection, ValidSortOption} from "../util/types";
 import {useKeywords} from "../context/keywords";
 import {sdk} from "../util/query";
 import {SadFace} from "../components/util/SadFace";
@@ -10,6 +10,12 @@ import {PaginatedContainer, usePaginationControls} from "../components/util/Pagi
 import {GameCard} from "../components/view-items/GameCard";
 import {GameCardSkeleton} from "../components/skeletons/GameCardSkeleton";
 import {KeyImageType} from "../generated/graphql";
+import {SortBySelect} from "../components/games/SortBySelect";
+import {Sort} from "@material-ui/icons";
+import {SortDirButton} from "../components/games/SortDirButton";
+import {readProp} from "../util/storage";
+import {ResponsiveBox} from "../components/util/ResponsiveBox";
+import {Skeleton} from "@material-ui/lab";
 
 const useStyles = makeStyles(({breakpoints}) =>
 	createStyles({
@@ -38,38 +44,66 @@ export function Games() {
 	const classes = useStyles()
 	const {locale} = useLocale()
 	const {keywords} = useKeywords()
-	const [items, setItems] = useState<GameCardData[]>()
-	const pagination = usePaginationControls(items)
+	const [games, setGames] = useState<GameCardData[]>()
+	const pagination = usePaginationControls(games)
+
+	const [sortBy, setSortBy] = useState<ValidSortOption>(
+		readProp('sort_games_by', 'title') as ValidSortOption
+	)
+	const [sortDir, setSortDir] = useState<ValidSortDirection>(
+		readProp('sort_games_dir', 'ASC') as ValidSortDirection
+	)
 
 	useEffect(() => {
-		setItems(undefined)
+		setGames(undefined)
 		pagination.setPage(0)
 
-
-		sdk.searchGames({keywords: keywords})
+		sdk.searchGames({keywords: keywords, sortBy: sortBy, sortDir: sortDir})
 			.then(it => it.Catalog!.searchStore.elements)
 			.then(elements => {
-				setItems(
-					elements.map(element => ({
+				setGames(
+					elements.map<GameCardData>(element =>
+						({
 							id: element.id,
 							title: element.title,
 							namespace: element.namespace,
-							image: element.keyImages?.find(image => image.type === KeyImageType.OfferImageTall)?.url
-						} as GameCardData)
-					).sort((first, second) => first.title.localeCompare(second.title))
+							image: element.keyImages?.find(image => image.type === KeyImageType.OfferImageTall)?.url,
+							creationDate: new Date(element.creationDate)
+						})
+					)
 				)
 			})
 			.catch(reason => {
 				Log.error(reason)
-				setItems([])
+				setGames([])
 			})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [keywords])
+	}, [keywords, sortBy, sortDir])
 
 	return (
-		<Box display={'flex'} flexDirection={'column'}>{
-			items?.length === 0 ? <SadFace children={locale.no_games}/> :
+		<Box
+			display={'flex'}
+			flexDirection={'column'}> {
+			games?.length === 0 ? <SadFace children={locale.no_games}/> :
 				<PaginatedContainer controls={pagination} show={true}>
+					<ResponsiveBox breakpoint={'sm'}>
+						{games ?
+							<Typography variant={'h5'} children={`${locale.found_games}: ${games.length}`}/> :
+							<Skeleton variant={'text'} height={40} width={200}/>
+						}
+						<Box margin={1} flex={1}/>
+						<ResponsiveBox breakpoint={'xs'} justifyContent={'flex-end'} alignItems={'flex-end'} paddingRight={2}>
+							<Box display={'flex'} alignItems={'baseline'}>
+								<Sort style={{transform: 'scale(-1,1)', alignSelf: 'center'}}/>
+								<Box marginX={1}><Typography children={locale.sort_by}/></Box>
+								<SortBySelect sortBy={sortBy} setSortBy={setSortBy}/>
+							</Box>
+							<Box margin={1}/>
+							<Box>
+								<SortDirButton sortDir={sortDir} setSortDir={setSortDir}/>
+							</Box>
+						</ResponsiveBox>
+					</ResponsiveBox>
+					<Box marginY={1}/>
 					<Box className={classes.grid}>{
 						pagination.pageItems()?.map(it =>
 							<GameCard data={it}

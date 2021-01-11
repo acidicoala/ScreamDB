@@ -1,14 +1,15 @@
 {
   "name": "scream-db",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "homepage": "/",
   "type": "module",
   "dependencies": {
     "@graphql-codegen/cli": "^1.20.0",
     "@graphql-codegen/typescript": "1.20.0",
-    "@graphql-codegen/typescript-operations": "1.17.13",
     "@graphql-codegen/typescript-graphql-request": "^3.0.0",
+    "@graphql-codegen/typescript-operations": "1.17.13",
+    "@graphql-codegen/typescript-resolvers": "^1.18.1",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -50,12 +51,12 @@
     ],
     "overrides": [
       {
+        "files": [
+          "**/*.ts?(x)"
+        ],
         "rules": {
           "react-hooks/exhaustive-deps": "off"
-        },
-        "files": [
-          "**/*.TS?(X)"
-        ]
+        }
       }
     ]
   },

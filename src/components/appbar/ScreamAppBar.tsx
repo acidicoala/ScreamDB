@@ -65,7 +65,7 @@ export function ScreamAppBar() {
 						<IconButton onClick={() => setOpen(!open)} children={<Menu/>}/>
 					</Hidden>
 					<ScreamLink to={path.to.home}>
-						<Typography variant={'h5'} children={'ScreamDB'}/>
+						<Typography variant={'h5'} children={<b>ScreamDB</b>}/>
 					</ScreamLink>
 					<Box marginX={1}/>
 					<Hidden xsDown children={<NavButtons/>}/>

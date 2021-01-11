@@ -5,8 +5,8 @@ import {TableCell, TableRow} from "@material-ui/core";
 export function OfferRowSkeleton(props?: { style?: CSSProperties }) {
 	return (
 		<TableRow style={props?.style}>
-			<TableCell width={50}/>
-			<TableCell width={100}>
+			<TableCell/>
+			<TableCell width={100} height={64}>
 				<Skeleton variant="rect" width={88.88} height={50}/>
 			</TableCell>
 			<TableCell><Skeleton variant="text"/></TableCell>

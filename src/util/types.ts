@@ -4,7 +4,8 @@ export interface GameCardData {
 	id: string,
 	title: string,
 	namespace: string
-	image?: string,
+	image?: string | null,
+	creationDate: Date
 }
 
 export interface OfferRowData {
@@ -16,3 +17,5 @@ export interface OfferRowData {
 }
 
 export type ValidLanguage = 'en' | 'ru'
+export type ValidSortOption = 'title' | 'creationDate'
+export type ValidSortDirection = 'ASC' | 'DESC'

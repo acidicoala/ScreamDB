@@ -24,8 +24,11 @@ yarn-error.log*
 
 .eslintcache
 debug.log
-.env*
+.env.development
 .firebase
 .firebase*
 firebase-debug.log
+
+# Workers
 workers-site
+dist

@@ -1,39 +1,63 @@
-# ScreamDB
-Some description?
+# 🐨 ScreamDB
 
+### Welcome to the ScreamDB repository.
 
-## App architecture
+For user-friendly introduction, please check out the web app's [home page](https://scream-db.web.app/).
+This document is meant for developers.
 
-React, Typescript, GraphQL, MaterialUI, Firebase, Workers
+## 🚀 App architecture
 
+This web was developed and hosted using great technologies such as:
 
-## Hosting
+* [🆁eact](https://reactjs.org/)
+* [🆃ypescript](https://www.typescriptlang.org/)
+* [🅼aterialUI](https://material-ui.com/)
+* [🅶raphQL Code Generator](https://graphql-code-generator.com/)
+* [🅲loudflare Workers](https://workers.cloudflare.com/)
+
+## 🏢 Hosting
 
 The web app is hosted on 🔥 Firebase at <https://scream-db.web.app/>
 
+## 🔐 The CORS issue
 
-## The CORS issue
+Modern browsers enforce strict [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy. That means the web
+app cannot directly make requests to the Epic's [GraphQL endpoint](https://www.epicgames.com/graphql). To overcome this
+issue I have deployed a simple CORS proxy script on the Cloudflare Workers platform. It redirects all request to the
+actual GraphQL endpoint but modifies the response header
+[`Access-Control-Allow-Origin`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)
+with the domain of this web app.
 
-To run the project locally, you need to create a `.env.development` file with `REACT_APP_CORS_PROXY` property
-pointing to a cors proxy server, since by default browsers will block requests to epic servers
-due to CORS policy.
+In order to run the web app locally, you will need to either create a `.env.development` file,
+with `REACT_APP_CORS_PROXY` property pointing to your own CORS proxy server, or disable your browser's strict CORS
+policy.
 
-To deploy the application, you need to define the `REACT_APP_CORS_PROXY` property in the `.env.production` file
+## 🌐 Localization
 
-
-## Localization
+Currently, the following languages are supported:
+* English
+* Russian
 
 The web app localization is defined in [src/util/locale.ts](./src/util/locale.ts).
 <br>
 Furthermore, home page is rendering localized markdown documents located at [src/md](./src/md).
 
+If you wish to contribute a translation for another language, you are free to submit a pull request.
 
-## Available Scripts
+## 📜 Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run the following commands:
 
-* `yarn start`  [start @ CRA docs](https://github.com/facebook/create-react-app#npm-start-or-yarn-start)
-* `yarn build`  [build @ CRA docs](https://github.com/facebook/create-react-app#npm-run-build-or-yarn-build)
-* `yarn deploy` [deploy @ Firebase docs](https://firebase.google.com/docs/cli#deployment)
+| Command             | Documentation                                                                                                               |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `yarn start`        | [start @ CRA docs](https://github.com/facebook/create-react-app#npm-start-or-yarn-start)                                    |
+| `yarn build`        | [build @ CRA docs](https://github.com/facebook/create-react-app#npm-run-build-or-yarn-build)                                |
+| `yarn deploy`       | [deploy @ Firebase docs](https://firebase.google.com/docs/cli#deployment)                                                   |
+| `yarn generate-sdk` | [graphql-codegen @ GraphQL Code Generator docs](https://graphql-code-generator.com/docs/plugins/typescript-graphql-request) |
 
+The commands above assume that the corresponding CLI tools have been installed and configured.
 
+## 📄 License
+This software is licensed under 
+[Zero Clause BSD](https://en.wikipedia.org/wiki/BSD_licenses#0-clause_license_(%22Zero_Clause_BSD%22)) license,
+terms of which are available in [LICENSE.txt](./LICENSE.txt).

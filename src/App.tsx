@@ -37,6 +37,7 @@ function App() {
 							<ResponsiveContainer>
 								<ScreamSwitch/>
 							</ResponsiveContainer>
+							{/*<ScreamFooter/>*/}
 						</OverflowBody>
 					</Router>
 				</ContextProviders>

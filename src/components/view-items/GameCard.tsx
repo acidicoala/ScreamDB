@@ -21,7 +21,7 @@ export function GameCard(props: {
 				onMouseLeave={() => setRaised(false)}
 			>
 				<Link to={path.to.offers(data.namespace)}>
-					<img src={data.image}
+					<img src={data.image ?? undefined}
 					     alt={data.title}
 					     style={{objectFit: 'cover'}}
 					     width={'100%'}
@@ -32,7 +32,7 @@ export function GameCard(props: {
 			</Card>
 			<Box marginY={1}/>
 			<OverflowText lines={2}
-			              style={{lineHeight: '1.3rem', fontSize: '0.9rem', fontWeight: 'bold'}}
+			              style={{lineHeight: '1.3rem', fontSize: '1rem', fontWeight: 'bold'}}
 			              children={data.title}/>
 		</Box>
 	)

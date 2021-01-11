@@ -1,8 +1,8 @@
-export function writeProp(key: string, value: any) {
+export function writeProp(key: LocalStorageProps, value: any) {
 	localStorage.setItem(key, value)
 }
 
-export function readProp(key: string, defaultValue: string) {
+export function readProp(key: LocalStorageProps, defaultValue: string) {
 	let property = localStorage.getItem(key)
 	if (!property) {
 		property = key
@@ -12,3 +12,10 @@ export function readProp(key: string, defaultValue: string) {
 }
 
 export const maxWidth = 'lg'
+
+export type LocalStorageProps =
+	| 'item_per_page'
+	| 'lang'
+	| 'sort_games_by'
+	| 'sort_games_dir'
+	| 'type_filters'

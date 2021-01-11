@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react"
 import {useParams} from "react-router-dom";
-import {Box, Typography} from "@material-ui/core";
-import {ToggleButton, ToggleButtonGroup} from "@material-ui/lab";
-import {Code, ViewList} from "@material-ui/icons";
+import {Box, IconButton, Tooltip, Typography} from "@material-ui/core";
+import {Skeleton, ToggleButton, ToggleButtonGroup} from "@material-ui/lab";
+import {Code, Launch, ViewList} from "@material-ui/icons";
 import {SadFace} from "../components/util/SadFace";
 import {OfferRowData} from "../util/types";
 import {useLocale} from "../hooks/locale";
@@ -12,16 +12,16 @@ import {TableView} from "../components/views/TableView";
 import {CodeView} from "../components/views/CodeView";
 import {PaginatedContainer, usePaginationControls} from "../components/util/PaginatedContainer";
 import {readProp, writeProp} from "../util/storage";
-import {OfferType} from "../generated/graphql";
-
-const PROP_KEY = 'filter_types'
+import {Element, OfferType} from "../generated/graphql";
 
 export function Offers() {
 	const {locale} = useLocale()
 	const {namespace} = useParams<{ namespace?: string }>()
+
 	const [view, setView] = useState<'table' | 'code'>('table');
-	const [offers, setOffers] = useState<OfferRowData[]>()
 	const [filterID, setFilterID] = useState('')
+	const [offers, setOffers] = useState<OfferRowData[]>()
+	const [gameInfo, setGameInfo] = useState<Pick<Element, 'title' | 'productSlug'>>()
 
 	let initialOfferTypesFilters: Record<OfferType, boolean> = {
 		ADD_ON: true,
@@ -34,7 +34,7 @@ export function Offers() {
 	}
 
 	try {
-		const storedOfferTypeFilters = JSON.parse(readProp(PROP_KEY, '{}'))
+		const storedOfferTypeFilters = JSON.parse(readProp('type_filters', '{}'))
 		initialOfferTypesFilters = {
 			...initialOfferTypesFilters,
 			...storedOfferTypeFilters
@@ -52,8 +52,6 @@ export function Offers() {
 
 	const pagination = usePaginationControls(filteredOffers)
 
-	const gameTitle = offers?.find(it => it.offerType === 'BASE_GAME')?.title
-
 	useEffect(() => {
 		setOffers(undefined)
 
@@ -63,8 +61,12 @@ export function Offers() {
 		}
 
 		sdk.searchOffers({namespace: namespace})
-			.then(it => it.Catalog!.catalogOffers.elements)
-			.then(elements =>
+			.then(it => it.Catalog!)
+			.then(catalog => {
+				const gameInfo = catalog.searchStore.elements[0]
+				const elements = catalog.catalogOffers.elements
+				// return
+				setGameInfo(gameInfo)
 				setOffers(
 					elements.map(element => ({
 							id: element.id,
@@ -86,19 +88,36 @@ export function Offers() {
 						} as OfferRowData)
 					)
 				)
-			).catch(reason => {
-			Log.error(reason)
-			setOffers([])
-		})
+			})
+			.catch(reason => {
+				Log.error(reason)
+				setOffers([])
+			})
 	}, [namespace])
 
 	return (
-		<Box marginY={4} display={'flex'} flexDirection={'column'}>{
+		<Box display={'flex'} flexDirection={'column'}>{
 			offers?.length === 0 ? <SadFace children={locale.no_offers}/> :
 				<PaginatedContainer controls={pagination} show={view === 'table'}>
 					<Box display={'flex'} alignItems={'center'}>
-						<Box flex={1}>{
-							offers && <Typography variant={'h5'} children={locale.showing_offers + gameTitle}/>
+						<Box flex={1} display={'flex'} alignItems={'center'}>{
+							gameInfo ?
+								<>
+									<Typography variant={'h5'}
+									            style={{textAlign: 'center'}}
+									            children={locale.showing_offers + gameInfo.title}/>
+									<Box marginX={1}/>
+									<a target={'_blank'} rel="noreferrer"
+									   href={'https://www.epicgames.com/store/product/' + gameInfo.productSlug}>
+										<Tooltip placement={'right'}
+										         title={<Typography variant={'caption'}
+										                            children={locale.view_on_epic_store}/>
+										         }>
+											<IconButton children={<Launch/>}/>
+										</Tooltip>
+									</a>
+								</> :
+								<Skeleton variant="text" width={300} height={48}/>
 						}   </Box>
 						<Typography children={locale.view}/>
 						<Box marginX={1}/>
@@ -116,9 +135,9 @@ export function Offers() {
 					           setFilterID={setFilterID}
 					           show={view === 'table'}
 					           offerTypeFilters={offerTypeFilters}
-					           setOfferTypeFilters={types => {
-						           setOfferTypeFilters(types)
-						           writeProp(PROP_KEY, JSON.stringify(types))
+					           setOfferTypeFilters={filters => {
+						           setOfferTypeFilters(filters)
+						           writeProp('type_filters', JSON.stringify(filters))
 					           }}
 					/>
 					<CodeView offers={filteredOffers} show={view === 'code'}/>

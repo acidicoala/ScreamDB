@@ -1,4 +1,8 @@
 export const rawLocale = {
+	ascending: {
+		en: 'Ascending',
+		ru: 'По возрастающей',
+	},
 	browse: {
 		en: 'Browse',
 		ru: 'Обзор',
@@ -19,9 +23,17 @@ export const rawLocale = {
 		en: 'Clear all',
 		ru: 'Убрать все',
 	},
+	descending: {
+		en: 'Descending',
+		ru: 'По убывающей',
+	},
 	filter_by_offer_type: {
 		en: 'Filter by offer type',
 		ru: 'Фильтр по типу контента',
+	},
+	found_games:{
+		en: 'Found games',
+		ru: 'Найдено игр'
 	},
 	home: {
 		en: 'Home',
@@ -83,12 +95,32 @@ export const rawLocale = {
 		en: 'Offers for ',
 		ru: 'Контент для ',
 	},
+	sort_by: {
+		en: 'Sort by',
+		ru: 'Сортировать по',
+	},
+	sort_title: {
+		en: 'Title',
+		ru: 'Названию',
+	},
+	sort_creation_date: {
+		en: 'Creation date',
+		ru: 'Дате создания',
+	},
 	title: {
 		en: 'Title',
 		ru: 'Название',
+	},
+	version: {
+		en: 'Version',
+		ru: 'Версия'
 	},
 	view: {
 		en: 'View',
 		ru: 'Вид',
 	},
+	view_on_epic_store: {
+		en: 'Open in Epic Games Store',
+		ru: 'Открыть в магазине Epic Games ',
+	}
 }

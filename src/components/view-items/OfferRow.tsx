@@ -1,7 +1,7 @@
 import {OfferRowData} from "../../util/types";
 import React, {useState} from "react";
 import {Box, Collapse, IconButton, Popover, Table, TableBody, TableCell, TableRow} from "@material-ui/core";
-import {KeyboardArrowDown, KeyboardArrowUp} from "@material-ui/icons";
+import {KeyboardArrowDown, KeyboardArrowUp, Panorama} from "@material-ui/icons";
 import {useLocale} from "../../hooks/locale";
 import {bindTrigger, usePopupState} from "material-ui-popup-state/hooks";
 import {bindPopover} from "material-ui-popup-state";
@@ -19,19 +19,23 @@ export function OfferRow(props: { data: OfferRowData }) {
 	return (
 		<>
 			<TableRow>
-				<TableCell width={10} padding={'none'}>{data.items.length > 1 && (
+				<TableCell padding={'none'}>{data.items.length > 1 && (
 					<IconButton onClick={() => setOpen(!open)}>
 						{open ? <KeyboardArrowUp/> : <KeyboardArrowDown/>}
 					</IconButton>
 				)}</TableCell>
-				<TableCell width={100} height={70}>
-					<img src={data.image}
-					     alt={data.title}
-					     style={{objectFit: 'cover', cursor: 'pointer'}}
-					     width={88.88}
-					     height={50}
-					     {...bindTrigger(popupState)}
-					/>
+				<TableCell width={100} height={64}>
+					<Box display={'flex'}>{
+						data.image ?
+							<img src={data.image}
+							     alt={''}
+							     style={{objectFit: 'cover', cursor: 'pointer'}}
+							     width={88.88}
+							     height={50}
+							     {...bindTrigger(popupState)}
+							/> :
+							<Panorama style={{width: 88.88, height: 50, color: 'gray'}}/>
+					}</Box>
 					<Popover
 						{...bindPopover(popupState)}
 						anchorOrigin={{

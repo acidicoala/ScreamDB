@@ -1,14 +1,17 @@
-query searchGames($keywords: String!) {
+query searchGames($keywords: String!, $sortBy: String, $sortDir: String) {
     Catalog {
         searchStore(
             category: "games/edition/base"
             count: 1000
             keywords: $keywords
+            sortBy: $sortBy
+            sortDir: $sortDir
         ) {
             elements {
                 id
                 title
                 namespace
+                creationDate
                 items {
                     id
                     namespace
@@ -41,6 +44,13 @@ query searchOffers($namespace: String!) {
                     type
                     url
                 }
+            }
+        }
+        # Get the game title as well
+        searchStore(category: "games/edition/base", namespace: $namespace){
+            elements {
+                title
+                productSlug
             }
         }
     }

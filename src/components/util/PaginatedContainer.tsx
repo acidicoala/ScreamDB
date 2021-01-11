@@ -5,7 +5,7 @@ import {readProp, writeProp} from "../../util/storage";
 const PROP_KEY = 'item_per_page'
 
 export function usePaginationControls<T>(items?: T[]) {
-	const storedItemsPerPage = Number(readProp(PROP_KEY, '10'))
+	const storedItemsPerPage = Number(readProp('item_per_page', '10'))
 	const [itemsPerPage, setItemsPerPage] = useState<number>(storedItemsPerPage ? storedItemsPerPage : 10)
 	const [page, setPage] = useState(0)
 
