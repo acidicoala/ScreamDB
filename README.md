@@ -36,6 +36,7 @@ policy.
 
 Currently, the following languages are supported:
 * English
+* Spanish (Credit to [g-yui](https://github.com/g-yui))
 * Russian
 
 The web app localization is defined in [src/util/locale.ts](./src/util/locale.ts).
