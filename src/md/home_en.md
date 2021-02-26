@@ -2,7 +2,7 @@
 
 ___
 
-## 🙋🏻‍♀️ Q&A
+## 🙋🏻‍♀️ Questions and answers
 
 * ### What is ScreamDB?
   ScreamDB is a web application for viewing DLC IDs of all games from the Epic Games store.

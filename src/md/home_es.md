@@ -6,7 +6,7 @@ ___
 
 
 
-## 🙋🏻•♀️ Preguntas y respuestas 
+## 🙋🏻‍♀️ Preguntas y respuestas 
 
 
 
@@ -23,7 +23,7 @@ ___
   La información proviene directamente de los servidores oficiales de Epic Games, asi que siempre esta actualizada.
 ___
 
-## 👩🏻•💻 Información adicional para desarrolladores
+## 👩🏻‍💻 Información adicional para desarrolladores
 
 * La aplicación web es de código abierto y esta disponible en [GitHub].
 

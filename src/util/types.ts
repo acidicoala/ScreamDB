@@ -16,6 +16,6 @@ export interface OfferRowData {
 	image?: string,
 }
 
-export type ValidLanguage = 'en' | 'ru'
+export type ValidLanguage = 'en' | 'es' | 'ru'
 export type ValidSortOption = 'title' | 'creationDate'
 export type ValidSortDirection = 'ASC' | 'DESC'

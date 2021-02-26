@@ -25,11 +25,11 @@ export function Offers() {
 
 	let initialOfferTypesFilters: Record<OfferType, boolean> = {
 		ADD_ON: true,
-		BASE_GAME: false,
-		BUNDLE: false,
-		EDITION: false,
+		BASE_GAME: true,
+		BUNDLE: true,
+		EDITION: true,
 		DLC: true,
-		OTHERS: false,
+		OTHERS: true,
 		UNLOCKABLE: true,
 	}
 

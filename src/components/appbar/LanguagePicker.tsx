@@ -14,6 +14,7 @@ export function LanguagePicker() {
 
 	const languages = [
 		{key: 'en', text: rawLocale.lang.en},
+		{key: 'es', text: rawLocale.lang.es},
 		{key: 'ru', text: rawLocale.lang.ru},
 	]
 
