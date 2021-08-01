@@ -1,6 +1,9 @@
 import React, {PropsWithChildren, useRef, useState} from "react"
 import {Box, TablePagination} from "@material-ui/core";
 import {readProp, writeProp} from "../../util/storage";
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import {ruRU,enUS, esES} from "@material-ui/core/locale";
+import {useLanguage} from "../../context/language";
 
 const PROP_KEY = 'item_per_page'
 
@@ -24,30 +27,41 @@ export function PaginatedContainer(props: PropsWithChildren<{
 	show: boolean
 }>) {
 	const {controls, children, show} = props
-	const {items, itemsPerPage, page, pageItems, setItemsPerPage, setPage} = controls
+	const {items, itemsPerPage, page, setItemsPerPage, setPage} = controls
+
+	const {lang} = useLanguage()
+
+	const locale = {
+		en: enUS,
+		es: esES,
+		ru: ruRU
+	}[lang]
 
 	const containerRef = useRef<HTMLDivElement>(null)
 
 	return (
 		<Box {...{ref: containerRef}} paddingY={4}>
-			{pageItems && children}
-			<Box marginY={2}/>
-			{show && items && <TablePagination
-				rowsPerPageOptions={[5, 10, 25, 50, 100, 1000]}
-				component="div"
-				count={items.length}
-				rowsPerPage={itemsPerPage}
-				page={page}
-				onChangePage={(e, page) => {
-					containerRef?.current?.scrollIntoView()
-					setPage(page)
-				}}
-				onChangeRowsPerPage={event => {
-					setItemsPerPage(parseInt(event.target.value, 10))
-					writeProp(PROP_KEY, event.target.value)
-					setPage(0)
-				}}
-			/>}
-		</Box>
+			{children}
+			<Box marginY={2}/>{
+			show && items &&
+			<ThemeProvider theme={(outerTheme) => createTheme(outerTheme, locale)}>
+				<TablePagination
+					rowsPerPageOptions={[5, 10, 25, 50, 100, 1000]}
+					component="div"
+					count={items.length}
+					rowsPerPage={itemsPerPage}
+					page={page}
+					onPageChange={(e, page) => {
+						containerRef?.current?.scrollIntoView()
+						setPage(page)
+					}}
+					onChangeRowsPerPage={event => {
+						setItemsPerPage(parseInt(event.target.value, 10))
+						writeProp(PROP_KEY, event.target.value)
+						setPage(0)
+					}}
+				/>
+			</ThemeProvider>
+		}</Box>
 	)
 }

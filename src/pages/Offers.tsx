@@ -21,7 +21,7 @@ export function Offers() {
 	const [view, setView] = useState<'table' | 'code'>('table');
 	const [filterID, setFilterID] = useState('')
 	const [offers, setOffers] = useState<OfferRowData[]>()
-	const [gameInfo, setGameInfo] = useState<Pick<Element, 'title' | 'productSlug'>>()
+	const [gameInfo, setGameInfo] = useState<Pick<Element, 'title' | 'catalogNs'>>()
 
 	let initialOfferTypesFilters: Record<OfferType, boolean> = {
 		ADD_ON: true,
@@ -65,7 +65,7 @@ export function Offers() {
 			.then(catalog => {
 				const gameInfo = catalog.searchStore.elements[0]
 				const elements = catalog.catalogOffers.elements
-				// return
+
 				setGameInfo(gameInfo)
 				setOffers(
 					elements.map(element => ({
@@ -108,7 +108,8 @@ export function Offers() {
 									            children={locale.showing_offers + gameInfo.title}/>
 									<Box marginX={1}/>
 									<a target={'_blank'} rel="noreferrer"
-									   href={'https://www.epicgames.com/store/product/' + gameInfo.productSlug}>
+									   href={'https://www.epicgames.com/store/product/' +
+									   gameInfo.catalogNs.mappings[0].pageSlug}>
 										<Tooltip placement={'right'}
 										         title={<Typography variant={'caption'}
 										                            children={locale.view_on_epic_store}/>

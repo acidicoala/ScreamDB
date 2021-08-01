@@ -1,6 +1,6 @@
 import {Box, createStyles, makeStyles, Typography, useTheme} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {GameCardData, ValidSortDirection, ValidSortOption} from "../util/types";
+import {GameCardData, ValidSortDirection} from "../util/types";
 import {useKeywords} from "../context/keywords";
 import {sdk} from "../util/query";
 import {SadFace} from "../components/util/SadFace";
@@ -10,7 +10,7 @@ import {PaginatedContainer, usePaginationControls} from "../components/util/Pagi
 import {GameCard} from "../components/view-items/GameCard";
 import {GameCardSkeleton} from "../components/skeletons/GameCardSkeleton";
 import {KeyImageType} from "../generated/graphql";
-import {SortBySelect} from "../components/games/SortBySelect";
+import {SortBySelect, SortOption} from "../components/games/SortBySelect";
 import {Sort} from "@material-ui/icons";
 import {SortDirButton} from "../components/games/SortDirButton";
 import {readProp} from "../util/storage";
@@ -47,8 +47,8 @@ export function Games() {
 	const [games, setGames] = useState<GameCardData[]>()
 	const pagination = usePaginationControls(games)
 
-	const [sortBy, setSortBy] = useState<ValidSortOption>(
-		readProp('sort_games_by', 'title') as ValidSortOption
+	const [sortBy, setSortBy] = useState<SortOption>(
+		readProp('sort_games_by', SortOption.RELEVANCE) as SortOption
 	)
 	const [sortDir, setSortDir] = useState<ValidSortDirection>(
 		readProp('sort_games_dir', 'ASC') as ValidSortDirection

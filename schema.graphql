@@ -19,6 +19,13 @@ type Elements {
     elements: [Element!]!
 }
 
+type Mapping{
+    pageSlug: String!
+}
+type CatalogNs {
+    mappings(pageType: String): [Mapping!]!
+}
+
 type Element {
     id: String!
     title: String!
@@ -27,7 +34,7 @@ type Element {
     items: [Item!]!
     keyImages: [KeyImage!]!
     creationDate: String!
-    productSlug: String
+    catalogNs: CatalogNs!
 }
 
 enum OfferType {

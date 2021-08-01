@@ -124,15 +124,35 @@ export const rawLocale = {
 		ru: 'Сортировать по',
 		es: 'Ordenar por',
 	},
-	sort_title: {
-		en: 'Title',
-		ru: 'Названию',
-		es: 'Título',
-	},
 	sort_creation_date: {
 		en: 'Creation date',
 		ru: 'Дате создания',
 		es: 'Fecha de creación',
+	},
+	sort_current_price:{
+		en: 'Current price',
+		ru: 'Цене',
+		es: 'Precio',
+	},
+	sort_new_release:{
+		en: 'New release',
+		ru: 'Новинке',
+		es: 'Nuevo lanzamiento',
+	},
+	sort_release_date:{
+		en: 'Release date',
+		ru: 'Дате выхода',
+		es: 'Fecha de lanzamiento',
+	},
+	sort_relevance:{
+		en: 'Relevance',
+		ru: 'Актуальности',
+		es: 'Relevancia',
+	},
+	sort_title: {
+		en: 'Title',
+		ru: 'Названию',
+		es: 'Título',
 	},
 	title: {
 		en: 'Title',

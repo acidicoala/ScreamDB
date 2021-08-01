@@ -17,5 +17,5 @@ export interface OfferRowData {
 }
 
 export type ValidLanguage = 'en' | 'es' | 'ru'
-export type ValidSortOption = 'title' | 'creationDate'
+// export type ValidSortOption = 'title' | 'creationDate'
 export type ValidSortDirection = 'ASC' | 'DESC'

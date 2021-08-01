@@ -5,7 +5,7 @@ export function writeProp(key: LocalStorageProps, value: any) {
 export function readProp(key: LocalStorageProps, defaultValue: string) {
 	let property = localStorage.getItem(key)
 	if (!property) {
-		property = key
+		property = defaultValue
 		writeProp(key, defaultValue)
 	}
 	return property

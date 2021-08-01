@@ -1,5 +1,6 @@
 import React from "react"
 import {OfferRowData} from "../../util/types";
+
 import ReactMarkdown from "react-markdown";
 import {default as SyntaxHighlighter} from "react-syntax-highlighter"
 import {vs2015 as style} from 'react-syntax-highlighter/dist/esm/styles/hljs'
@@ -50,12 +51,16 @@ export function CodeView(props: {
 					onClick={() => navigator.clipboard.writeText(lines ?? '')}
 				/>
 			</Box>
-			<ReactMarkdown source={md} renderers={{
-				code: ({language, value}) =>
-					<SyntaxHighlighter style={style}
-					                   language={language}
-					                   children={value}
-					                   showLineNumbers={true}/>
+			<ReactMarkdown children={md} components={{
+				code: ({children}) => (
+					<SyntaxHighlighter
+						style={style}
+						language={'ini'}
+						PreTag="div"
+						showLineNumbers={true}
+						children={String(children).replace(/\n$/, '')}
+					/>
+				)
 			}} className={classes.code}/>
 		</Box>
 	)

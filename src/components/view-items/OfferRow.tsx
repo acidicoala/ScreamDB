@@ -51,8 +51,12 @@ export function OfferRow(props: { data: OfferRowData }) {
 						<Box display={'flex'}>
 							<img src={data.image}
 							     alt={data.title}
-							     style={{objectFit: 'cover'}}
-							     width={400}/>
+							     style={{
+							     	objectFit: 'cover',
+								     maxWidth: 400,
+								     maxHeight: 400
+							     }}
+							/>
 						</Box>
 					</Popover>
 				</TableCell>

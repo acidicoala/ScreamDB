@@ -1,5 +1,5 @@
 import React from 'react';
-import {createMuiTheme, CssBaseline, responsiveFontSizes, ThemeOptions, ThemeProvider} from "@material-ui/core";
+import {createTheme, CssBaseline, responsiveFontSizes, ThemeOptions, ThemeProvider} from "@material-ui/core";
 import {ScreamAppBar} from "./components/appbar/ScreamAppBar";
 import {ScreamSwitch} from "./components/router/ScreamSwitch";
 import {BrowserRouter as Router} from "react-router-dom";
@@ -8,7 +8,7 @@ import {OverflowBody} from "./components/util/OverflowBody";
 import {ResponsiveContainer} from "./components/util/ResponsiveContainer";
 
 const theme = responsiveFontSizes(
-	createMuiTheme({
+	createTheme({
 		palette: {
 			type: 'dark',
 			primary: {

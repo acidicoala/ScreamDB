@@ -50,7 +50,11 @@ query searchOffers($namespace: String!) {
         searchStore(category: "games/edition/base", namespace: $namespace){
             elements {
                 title
-                productSlug
+                catalogNs{
+                    mappings(pageType: "productHome"){
+                        pageSlug
+                    }
+                }
             }
         }
     }

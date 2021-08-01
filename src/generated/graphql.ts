@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { GraphQLClient } from 'graphql-request';
-import { print } from 'graphql';
+import * as Dom from 'graphql-request/dist/types.dom';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -16,9 +16,18 @@ export type Scalars = {
   Float: number;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  Catalog?: Maybe<CatalogQuery>;
+export type CatalogNs = {
+  __typename?: 'CatalogNs';
+  mappings: Array<Mapping>;
+};
+
+
+export type CatalogNsMappingsArgs = {
+  pageType?: Maybe<Scalars['String']>;
+};
+
+export type CatalogOffersParams = {
+  count?: Maybe<Scalars['Int']>;
 };
 
 export type CatalogQuery = {
@@ -43,15 +52,6 @@ export type CatalogQueryCatalogOffersArgs = {
   params?: Maybe<CatalogOffersParams>;
 };
 
-export type CatalogOffersParams = {
-  count?: Maybe<Scalars['Int']>;
-};
-
-export type Elements = {
-  __typename?: 'Elements';
-  elements: Array<Element>;
-};
-
 export type Element = {
   __typename?: 'Element';
   id: Scalars['String'];
@@ -61,18 +61,13 @@ export type Element = {
   items: Array<Item>;
   keyImages: Array<KeyImage>;
   creationDate: Scalars['String'];
-  productSlug?: Maybe<Scalars['String']>;
+  catalogNs: CatalogNs;
 };
 
-export enum OfferType {
-  AddOn = 'ADD_ON',
-  BaseGame = 'BASE_GAME',
-  Bundle = 'BUNDLE',
-  Edition = 'EDITION',
-  Dlc = 'DLC',
-  Others = 'OTHERS',
-  Unlockable = 'UNLOCKABLE'
-}
+export type Elements = {
+  __typename?: 'Elements';
+  elements: Array<Element>;
+};
 
 export type Item = {
   __typename?: 'Item';
@@ -95,6 +90,26 @@ export enum KeyImageType {
   DieselStoreFrontTall = 'DieselStoreFrontTall',
   DieselStoreFrontWide = 'DieselStoreFrontWide'
 }
+
+export type Mapping = {
+  __typename?: 'Mapping';
+  pageSlug: Scalars['String'];
+};
+
+export enum OfferType {
+  AddOn = 'ADD_ON',
+  BaseGame = 'BASE_GAME',
+  Bundle = 'BUNDLE',
+  Edition = 'EDITION',
+  Dlc = 'DLC',
+  Others = 'OTHERS',
+  Unlockable = 'UNLOCKABLE'
+}
+
+export type Query = {
+  __typename?: 'Query';
+  Catalog?: Maybe<CatalogQuery>;
+};
 
 export type SearchGamesQueryVariables = Exact<{
   keywords: Scalars['String'];
@@ -150,7 +165,14 @@ export type SearchOffersQuery = (
       { __typename?: 'Elements' }
       & { elements: Array<(
         { __typename?: 'Element' }
-        & Pick<Element, 'title' | 'productSlug'>
+        & Pick<Element, 'title'>
+        & { catalogNs: (
+          { __typename?: 'CatalogNs' }
+          & { mappings: Array<(
+            { __typename?: 'Mapping' }
+            & Pick<Mapping, 'pageSlug'>
+          )> }
+        ) }
       )> }
     ) }
   )> }
@@ -160,6 +182,10 @@ export type SearchOffersQuery = (
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
+
+export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
 
 export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
   fragment: string;
@@ -173,6 +199,7 @@ export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
 export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
   | ResolverFn<TResult, TParent, TContext, TArgs>
+  | ResolverWithResolve<TResult, TParent, TContext, TArgs>
   | StitchingResolver<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
@@ -234,46 +261,46 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: ResolverTypeWrapper<{}>;
-  CatalogQuery: ResolverTypeWrapper<CatalogQuery>;
+  CatalogNs: ResolverTypeWrapper<CatalogNs>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   CatalogOffersParams: CatalogOffersParams;
-  Elements: ResolverTypeWrapper<Elements>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  CatalogQuery: ResolverTypeWrapper<CatalogQuery>;
   Element: ResolverTypeWrapper<Element>;
-  OfferType: OfferType;
+  Elements: ResolverTypeWrapper<Elements>;
   Item: ResolverTypeWrapper<Item>;
   KeyImage: ResolverTypeWrapper<KeyImage>;
   KeyImageType: KeyImageType;
+  Mapping: ResolverTypeWrapper<Mapping>;
+  OfferType: OfferType;
+  Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Query: {};
-  CatalogQuery: CatalogQuery;
+  CatalogNs: CatalogNs;
   String: Scalars['String'];
-  Int: Scalars['Int'];
   CatalogOffersParams: CatalogOffersParams;
-  Elements: Elements;
+  Int: Scalars['Int'];
+  CatalogQuery: CatalogQuery;
   Element: Element;
+  Elements: Elements;
   Item: Item;
   KeyImage: KeyImage;
+  Mapping: Mapping;
+  Query: {};
   Boolean: Scalars['Boolean'];
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  Catalog?: Resolver<Maybe<ResolversTypes['CatalogQuery']>, ParentType, ContextType>;
+export type CatalogNsResolvers<ContextType = any, ParentType extends ResolversParentTypes['CatalogNs'] = ResolversParentTypes['CatalogNs']> = {
+  mappings?: Resolver<Array<ResolversTypes['Mapping']>, ParentType, ContextType, RequireFields<CatalogNsMappingsArgs, never>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CatalogQueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['CatalogQuery'] = ResolversParentTypes['CatalogQuery']> = {
   searchStore?: Resolver<ResolversTypes['Elements'], ParentType, ContextType, RequireFields<CatalogQuerySearchStoreArgs, never>>;
   catalogOffers?: Resolver<ResolversTypes['Elements'], ParentType, ContextType, RequireFields<CatalogQueryCatalogOffersArgs, 'namespace'>>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type ElementsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Elements'] = ResolversParentTypes['Elements']> = {
-  elements?: Resolver<Array<ResolversTypes['Element']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -285,7 +312,12 @@ export type ElementResolvers<ContextType = any, ParentType extends ResolversPare
   items?: Resolver<Array<ResolversTypes['Item']>, ParentType, ContextType>;
   keyImages?: Resolver<Array<ResolversTypes['KeyImage']>, ParentType, ContextType>;
   creationDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  productSlug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  catalogNs?: Resolver<ResolversTypes['CatalogNs'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ElementsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Elements'] = ResolversParentTypes['Elements']> = {
+  elements?: Resolver<Array<ResolversTypes['Element']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -302,13 +334,24 @@ export type KeyImageResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MappingResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mapping'] = ResolversParentTypes['Mapping']> = {
+  pageSlug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  Catalog?: Resolver<Maybe<ResolversTypes['CatalogQuery']>, ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
-  Query?: QueryResolvers<ContextType>;
+  CatalogNs?: CatalogNsResolvers<ContextType>;
   CatalogQuery?: CatalogQueryResolvers<ContextType>;
-  Elements?: ElementsResolvers<ContextType>;
   Element?: ElementResolvers<ContextType>;
+  Elements?: ElementsResolvers<ContextType>;
   Item?: ItemResolvers<ContextType>;
   KeyImage?: KeyImageResolvers<ContextType>;
+  Mapping?: MappingResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
 };
 
 
@@ -367,24 +410,29 @@ export const SearchOffersDocument = gql`
     searchStore(category: "games/edition/base", namespace: $namespace) {
       elements {
         title
-        productSlug
+        catalogNs {
+          mappings(pageType: "productHome") {
+            pageSlug
+          }
+        }
       }
     }
   }
 }
     `;
 
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
 
-const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    searchGames(variables: SearchGamesQueryVariables, requestHeaders?: Headers): Promise<SearchGamesQuery> {
-      return withWrapper(() => client.request<SearchGamesQuery>(print(SearchGamesDocument), variables, requestHeaders));
+    searchGames(variables: SearchGamesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchGamesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SearchGamesQuery>(SearchGamesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'searchGames');
     },
-    searchOffers(variables: SearchOffersQueryVariables, requestHeaders?: Headers): Promise<SearchOffersQuery> {
-      return withWrapper(() => client.request<SearchOffersQuery>(print(SearchOffersDocument), variables, requestHeaders));
+    searchOffers(variables: SearchOffersQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SearchOffersQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SearchOffersQuery>(SearchOffersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'searchOffers');
     }
   };
 }

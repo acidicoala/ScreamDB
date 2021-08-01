@@ -45,7 +45,7 @@ export function Home() {
 
 	return (
 		<Box className={classes.home}>
-			<ReactMarkdown source={home[lang]}/>
+			<ReactMarkdown children={home[lang]}/>
 		</Box>
 	)
 }
