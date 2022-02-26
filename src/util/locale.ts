@@ -153,7 +153,7 @@ export const rawLocale = {
 		en: 'Creation date',
 		ru: 'Дате создания',
 		es: 'Fecha de creación',
-		zh: '首发日期',
+		zh: '预告日期',
 	},
 	sort_current_price:{
 		en: 'Current price',
@@ -165,13 +165,13 @@ export const rawLocale = {
 		en: 'New release',
 		ru: 'Новинке',
 		es: 'Nuevo lanzamiento',
-		zh: '最新发售',
+		zh: '最新推出',
 	},
 	sort_release_date:{
 		en: 'Release date',
 		ru: 'Дате выхода',
 		es: 'Fecha de lanzamiento',
-		zh: '发售日期',
+		zh: '推出日期',
 	},
 	sort_relevance:{
 		en: 'Relevance',
