@@ -9,7 +9,7 @@ export const rawLocale = {
 		en: 'Browse',
 		ru: 'Обзор',
 		es: 'Navegar',
-		zh: '搜索',
+		zh: '浏览',
 	},
 	code_desc: {
 		en: 'You can directly copy and paste this code snippet at the bottom of the ScreamAPI config file',
@@ -51,7 +51,7 @@ export const rawLocale = {
 		en: 'Found games',
 		ru: 'Найдено игр',
 		es: 'Juegos encontrados',
-		zh: '找到的游戏',
+		zh: '已找到游戏：',
 	},
 	home: {
 		en: 'Home',
@@ -147,13 +147,13 @@ export const rawLocale = {
 		en: 'Sort by',
 		ru: 'Сортировать по',
 		es: 'Ordenar por',
-		zh: '顺序：',
+		zh: '排序方式：',
 	},
 	sort_creation_date: {
 		en: 'Creation date',
 		ru: 'Дате создания',
 		es: 'Fecha de creación',
-		zh: '预告日期',
+		zh: '公开日期',
 	},
 	sort_current_price:{
 		en: 'Current price',
