@@ -15,7 +15,7 @@ export const rawLocale = {
 		en: 'You can directly copy and paste this code snippet at the bottom of the ScreamAPI config file',
 		ru: 'Вы можете напрямую скопировать и вставить данный фрагмент кода в конец конфигуграционного файла ScreamAPI',
 		es: 'Puedes copiar y pegar este retazo de código directamente al fondo del archivo de configuración de ScreamAPI',
-		zh: '您可以直接将以下代码复制并粘贴进 ScreamAPI 配置文件中',
+		zh: '您可以直接将以下代码复制并粘贴至 ScreamAPI 配置文件底部',
 	},
 	copy: {
 		en: 'Copy',
@@ -33,7 +33,7 @@ export const rawLocale = {
 		en: 'Clear all',
 		ru: 'Убрать все',
 		es: 'Limpiar todo',
-		zh: '清除所有',
+		zh: '清空',
 	},
 	descending: {
 		en: 'Descending',
