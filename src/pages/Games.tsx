@@ -84,7 +84,7 @@ export function Games() {
 			display={'flex'}
 			flexDirection={'column'}> {
 			games?.length === 0 ? <SadFace children={locale.no_games}/> :
-				<PaginatedContainer controls={pagination} show={true}>
+				<PaginatedContainer controls={pagination}>
 					<ResponsiveBox breakpoint={'sm'}>
 						{games ?
 							<Typography variant={'h5'} children={`${locale.found_games}: ${games.length}`}/> :

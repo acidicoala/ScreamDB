@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from "react"
 import {useParams} from "react-router-dom";
 import {Box, IconButton, Tooltip, Typography} from "@material-ui/core";
-import {Skeleton, ToggleButton, ToggleButtonGroup} from "@material-ui/lab";
-import {Code, Launch, ViewList} from "@material-ui/icons";
+import {Skeleton} from "@material-ui/lab";
+import {Launch} from "@material-ui/icons";
 import {SadFace} from "../components/util/SadFace";
 import {OfferRowData} from "../util/types";
 import {useLocale} from "../hooks/locale";
 import {sdk} from "../util/query";
 import {Log} from "../util/log";
 import {TableView} from "../components/views/TableView";
-import {CodeView} from "../components/views/CodeView";
 import {PaginatedContainer, usePaginationControls} from "../components/util/PaginatedContainer";
 import {readProp, writeProp} from "../util/storage";
 import {Element, OfferType} from "../generated/graphql";
@@ -18,7 +17,6 @@ export function Offers() {
 	const {locale} = useLocale()
 	const {namespace} = useParams<{ namespace?: string }>()
 
-	const [view, setView] = useState<'table' | 'code'>('table');
 	const [filterID, setFilterID] = useState('')
 	const [offers, setOffers] = useState<OfferRowData[]>()
 	const [gameInfo, setGameInfo] = useState<Pick<Element, 'title' | 'catalogNs'>>()
@@ -98,7 +96,7 @@ export function Offers() {
 	return (
 		<Box display={'flex'} flexDirection={'column'}>{
 			offers?.length === 0 ? <SadFace children={locale.no_offers}/> :
-				<PaginatedContainer controls={pagination} show={view === 'table'}>
+				<PaginatedContainer controls={pagination}>
 					<Box display={'flex'} alignItems={'center'}>
 						<Box flex={1} display={'flex'} alignItems={'center'}>{
 							gameInfo ?
@@ -119,29 +117,17 @@ export function Offers() {
 									</a>
 								</> :
 								<Skeleton variant="text" width={300} height={48}/>
-						}   </Box>
-						<Typography children={locale.view}/>
-						<Box marginX={1}/>
-						<ToggleButtonGroup
-							value={view}
-							exclusive
-							onChange={(_, newView) => newView && setView(newView)}
-						>
-							<ToggleButton value="table" children={<ViewList/>}/>
-							<ToggleButton value="code" children={<Code/>}/>
-						</ToggleButtonGroup>
+						}</Box>
 					</Box>
 					<Box marginY={2}/>
 					<TableView pagination={pagination}
 					           setFilterID={setFilterID}
-					           show={view === 'table'}
 					           offerTypeFilters={offerTypeFilters}
 					           setOfferTypeFilters={filters => {
 						           setOfferTypeFilters(filters)
 						           writeProp('type_filters', JSON.stringify(filters))
 					           }}
 					/>
-					<CodeView offers={filteredOffers} show={view === 'code'}/>
 				</PaginatedContainer>
 		}</Box>
 	)

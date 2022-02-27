@@ -191,12 +191,6 @@ export const rawLocale = {
 		es: 'Versión',
 		zh: '版本',
 	},
-	view: {
-		en: 'View',
-		ru: 'Вид',
-		es: 'Vista',
-		zh: '显示方式',
-	},
 	view_on_epic_store: {
 		en: 'Open in Epic Games Store',
 		ru: 'Открыть в магазине Epic Games ',

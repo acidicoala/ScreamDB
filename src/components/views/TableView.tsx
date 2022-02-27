@@ -13,13 +13,12 @@ import {ResponsiveBox} from "../util/ResponsiveBox";
 const usePaginationControlsWrapper = () => usePaginationControls<OfferRowData>()
 
 export function TableView(props: {
-	show: boolean
 	pagination: ReturnType<typeof usePaginationControlsWrapper>
 	setFilterID: (idFilter: string) => void
 	offerTypeFilters: Record<OfferType, boolean>,
 	setOfferTypeFilters: (typeFilters: Record<OfferType, boolean>) => void
 }) {
-	const {show, pagination, setFilterID, offerTypeFilters, setOfferTypeFilters} = props
+	const {pagination, setFilterID, offerTypeFilters, setOfferTypeFilters} = props
 	const {locale} = useLocale()
 
 	function onSearch(query: string) {
@@ -28,7 +27,7 @@ export function TableView(props: {
 	}
 
 	return (
-		<Box style={show ? {} : {display: 'none'}}>
+		<Box>
 			<ResponsiveBox breakpoint={'sm'}>
 				<SearchBar placeholder={locale.search_by_id} onSearch={onSearch} onClear={onSearch}/>
 				<Box margin={1} flex={1}/>

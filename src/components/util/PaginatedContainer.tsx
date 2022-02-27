@@ -24,9 +24,8 @@ export function usePaginationControls<T>(items?: T[]) {
 
 export function PaginatedContainer(props: PropsWithChildren<{
 	controls: ReturnType<typeof usePaginationControls>
-	show: boolean
 }>) {
-	const {controls, children, show} = props
+	const {controls, children} = props
 	const {items, itemsPerPage, page, setItemsPerPage, setPage} = controls
 
 	const {lang} = useLanguage()
@@ -43,8 +42,7 @@ export function PaginatedContainer(props: PropsWithChildren<{
 	return (
 		<Box {...{ref: containerRef}} paddingY={4}>
 			{children}
-			<Box marginY={2}/>{
-			show && items &&
+			<Box marginY={2}/>{ items &&
 			<ThemeProvider theme={(outerTheme) => createTheme(outerTheme, locale)}>
 				<TablePagination
 					rowsPerPageOptions={[5, 10, 25, 50, 100, 1000]}
