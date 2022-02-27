@@ -2,7 +2,7 @@ import React, {PropsWithChildren, useRef, useState} from "react"
 import {Box, TablePagination} from "@material-ui/core";
 import {readProp, writeProp} from "../../util/storage";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import {ruRU,enUS, esES} from "@material-ui/core/locale";
+import {ruRU, enUS, esES, zhCN} from "@material-ui/core/locale";
 import {useLanguage} from "../../context/language";
 
 const PROP_KEY = 'item_per_page'
@@ -34,7 +34,8 @@ export function PaginatedContainer(props: PropsWithChildren<{
 	const locale = {
 		en: enUS,
 		es: esES,
-		ru: ruRU
+		ru: ruRU,
+		zh: zhCN
 	}[lang]
 
 	const containerRef = useRef<HTMLDivElement>(null)

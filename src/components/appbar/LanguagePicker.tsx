@@ -16,6 +16,7 @@ export function LanguagePicker() {
 		{key: 'en', text: rawLocale.lang.en},
 		{key: 'es', text: rawLocale.lang.es},
 		{key: 'ru', text: rawLocale.lang.ru},
+		{key: 'zh', text: rawLocale.lang.zh},
 	]
 
 	return (

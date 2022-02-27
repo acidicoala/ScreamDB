@@ -51,7 +51,7 @@ export const rawLocale = {
 		en: 'Found games',
 		ru: 'Найдено игр',
 		es: 'Juegos encontrados',
-		zh: '已找到游戏：',
+		zh: '已找到游戏',
 	},
 	home: {
 		en: 'Home',
@@ -82,12 +82,6 @@ export const rawLocale = {
 		ru: 'Несколько предметов',
 		es: 'Múltiples elementos',
 		zh: '多项',
-	},
-	namespace: {
-		en: 'Namespace',
-		ru: 'Namespace',
-		es: 'Namespace',
-		zh: '命名空间',
 	},
 	no_offers: {
 		en: 'No offers found',
@@ -141,13 +135,13 @@ export const rawLocale = {
 		en: 'Offers for ',
 		ru: 'Контент для ',
 		es: 'Contenido para ',
-		zh: '以下游戏的结果：',
+		zh: '以下游戏的结果',
 	},
 	sort_by: {
 		en: 'Sort by',
 		ru: 'Сортировать по',
 		es: 'Ordenar por',
-		zh: '排序方式：',
+		zh: '排序方式',
 	},
 	sort_creation_date: {
 		en: 'Creation date',
