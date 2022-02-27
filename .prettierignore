@@ -1,0 +1,5 @@
+.idea
+graphql
+node_modules
+public
+workers

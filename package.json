@@ -36,7 +36,8 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "firebase-tools": "^10.2.1"
+    "firebase-tools": "^10.2.1",
+    "prettier": "2.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
