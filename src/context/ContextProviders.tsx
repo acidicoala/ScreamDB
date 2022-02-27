@@ -6,7 +6,7 @@ import {ValidLanguage} from "../util/types";
 
 export function ContextProviders(props: PropsWithChildren<{}>) {
 	let storedLang = readProp('lang', 'en')
-	if (!['en', 'es', 'ru'].includes(storedLang)) {
+	if (!['en', 'es', 'ru', 'zh'].includes(storedLang)) {
 		storedLang = 'en'
 		writeProp('lang', 'en')
 	}
