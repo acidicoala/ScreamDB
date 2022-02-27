@@ -21,16 +21,15 @@ The web app is hosted on 🔥 Firebase at <https://scream-db.web.app/>
 
 ## 🔐 The CORS issue
 
-Modern browsers enforce strict [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy. That means the web app cannot directly make requests to the Epic's [GraphQL endpoint](https://www.epicgames.com/graphql). To overcome this issue I have deployed a simple CORS proxy script on the Cloudflare Workers platform. It redirects all request to the actual GraphQL endpoint but modifies the response header [`Access-Control-Allow-Origin`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) with the domain of this web app.
-
-In order to run the web app locally, you will need to either create a `.env.development` file, with `REACT_APP_CORS_PROXY` property pointing to your own CORS proxy server, or disable your browser's strict CORS policy.
+Modern browsers enforce strict [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy. That means the web app cannot directly make requests to the Epic's [GraphQL endpoint](https://www.epicgames.com/graphql). Furthermore, Epic Games' GraphQL endpoint has a whitelist of valid `Referer` header values, which unfortunately is not possible to set using browser's JavaScript. To overcome these issues I have deployed a simple CORS proxy script on the Cloudflare Workers platform. It redirects all request to the actual GraphQL endpoint but modifies the response header [`Access-Control-Allow-Origin`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) with the domain of this web app. The source of the script is available in this repository: [epic-cors-proxy](./workers/epic-cors-proxy.js). The project is configured to use this proxy in development and production, but it is possible to override them via `.env` files.
 
 ## 🌐 Localization
 
 Currently, the following languages are supported:
 * English
-* Spanish (Credit to [g-yui](https://github.com/g-yui))
+* Spanish (Credit to @g-yui)
 * Russian
+* Simplified Chinese (Credit to @Citrinae-Lime)
 
 The web app localization is defined in [src/util/locale.ts](./src/util/locale.ts).
 
