@@ -45,7 +45,7 @@ export const rawLocale = {
     en: "Filter by offer type",
     ru: "Фильтр по типу контента",
     es: "Filtrar por tipo de oferta",
-    zh: "按订单类型过滤",
+    zh: "按类型过滤",
   },
   found_games: {
     en: "Found games",
@@ -87,7 +87,7 @@ export const rawLocale = {
     en: "No offers found",
     ru: "Не найдено дополнительного контента",
     es: "No se han encontrado ofertas",
-    zh: "未找到订单",
+    zh: "未找到附加类容",
   },
   no_games: {
     en: "No games found",
@@ -105,13 +105,13 @@ export const rawLocale = {
     en: "Offer type",
     ru: "Тип контента",
     es: "Tipo de oferta",
-    zh: "订单类型",
+    zh: "类型",
   },
   search_by_id: {
     en: "Search by ID",
     ru: "Поиск по ID",
     es: "Buscar por ID",
-    zh: "按ID搜索",
+    zh: "按 ID 搜索",
   },
   search_games: {
     en: "Search for games",
@@ -135,7 +135,7 @@ export const rawLocale = {
     en: "Offers for ",
     ru: "Контент для ",
     es: "Contenido para ",
-    zh: "以下游戏的结果",
+    zh: "结果自 ",
   },
   sort_by: {
     en: "Sort by",
