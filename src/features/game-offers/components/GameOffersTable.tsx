@@ -1,5 +1,5 @@
 import { type Locale, useLocale } from "~/core/hooks/useLocale.ts";
-import { useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 import {
   createMRTColumnHelper,
   MaterialReactTable,
@@ -44,7 +44,11 @@ export function GameOffersTable(props: { elements: OfferElement[] }) {
       }),
       columnHelper.accessor("title", {
         header: locale.title,
-        Cell: (props) => TooltipTitle({ title: props.cell.getValue() }),
+        Cell: (props) =>
+          TooltipTitle({
+            title: props.cell.getValue(),
+            renderedCellValue: props.renderedCellValue,
+          }),
       }),
       columnHelper.accessor("offerType", {
         header: locale.offer_type,
@@ -120,10 +124,10 @@ function getItemID(row: OfferElement, locale: Locale) {
   }
 }
 
-function TooltipTitle({ title }: { title: string }) {
+function TooltipTitle(props: { title: string; renderedCellValue: ReactNode }) {
   return (
-    <Tooltip title={title}>
-      <Box>{title}</Box>
+    <Tooltip title={props.title}>
+      <Box>{props.renderedCellValue}</Box>
     </Tooltip>
   );
 }
