@@ -15,16 +15,18 @@ It is automatically deployed on every push to the `master` branch.
 
 ## 🔐 The CORS issue
 
-Modern browsers enforce strict [CORS] policy. That means the web
-app cannot directly make requests to the Epic Games [GraphQL endpoint]. Furthermore,
-the endpoint has a whitelist of valid `Referer` header values, which unfortunately is not possible to set using
-browser's JavaScript. To overcome these issues I have deployed a simple CORS proxy script on the Cloudflare Workers
-platform. It redirects all request to the actual GraphQL endpoint but modifies the response header
-[`Access-Control-Allow-Origin`] with the domain of this web app.
+Modern browsers enforce strict [CORS] policy. That means the web app cannot directly make requests to the Epic
+Games [GraphQL endpoint]. Furthermore, the endpoint has a whitelist of valid `User-Agent` header values, which
+unfortunately is not possible to set using browser's JavaScript. To overcome these issues I have deployed a simple CORS
+proxy script on the Cloudflare Workers platform. It redirects all request to the actual GraphQL endpoint but modifies
+the response header [`Access-Control-Allow-Origin`] with the domain of this web app.
+
+The CORS proxy script itself is open-source and is available in the [epic-cors-proxy] repository.
 
 [CORS]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 [GraphQL endpoint]: https://launcher.store.epicgames.com/graphql
 [`Access-Control-Allow-Origin`]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+[epic-cors-proxy]: https://github.com/acidicoala/epic-cors-proxy
 
 ## 🛠️ Development
 
