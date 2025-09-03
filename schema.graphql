@@ -1,68 +1,83 @@
 schema {
-    query: Query
+  query: Query
 }
 
 type Query {
-    Catalog: CatalogQuery
+  Catalog: CatalogQuery!
 }
 
 type CatalogQuery {
-    searchStore(category: String, count: Int, namespace: String, keywords: String, sortBy: String, sortDir: String): Elements!
-    catalogOffers(namespace: String!, params: CatalogOffersParams): Elements!
+  catalogOffers(namespace: String!, params: CatalogOffersParams): SearchStoreResponse!
+  searchStore(
+    category: String
+    count: Int
+    namespace: String
+    keywords: String
+    sortBy: String
+    sortDir: String
+    start: Int
+  ): SearchStoreResponse!
 }
 
 input CatalogOffersParams {
-    count: Int
+  count: Int
 }
 
-type Elements {
-    elements: [Element!]!
+type Paging {
+  count: Int!
+  total: Int!
 }
 
-type Mapping{
-    pageSlug: String!
+type SearchStoreResponse {
+  elements: [Element!]!
+  paging: Paging!
+}
+
+type Mapping {
+  pageSlug: String!
 }
 type CatalogNs {
-    mappings(pageType: String): [Mapping!]!
+  mappings(pageType: String): [Mapping!]!
 }
 
 type Element {
-    id: String!
-    title: String!
-    namespace: String!
-    offerType: OfferType!
-    items: [Item!]!
-    keyImages: [KeyImage!]!
-    creationDate: String!
-    catalogNs: CatalogNs!
+  id: String!
+  title: String!
+  description: String!
+  namespace: String!
+  offerType: OfferType!
+  items: [Item!]!
+  keyImages: [KeyImage!]
+  creationDate: String!
+  catalogNs: CatalogNs!
 }
 
 enum OfferType {
-    ADD_ON
-    BASE_GAME
-    BUNDLE
-    EDITION
-    DLC
-    OTHERS
-    UNLOCKABLE
+  ADD_ON
+  BASE_GAME
+  BUNDLE
+  EDITION
+  DLC
+  OTHERS
+  UNLOCKABLE
 }
 
 type Item {
-    id: String!
-    title: String!
-    namespace: String!
+  id: String!
+  title: String!
+  namespace: String!
 }
 
 type KeyImage {
-    type: KeyImageType!
-    url: String
+  type: KeyImageType!
+  url: String!
 }
 
 enum KeyImageType {
-    OfferImageTall
-    OfferImageWide
-    Thumbnail
-    CodeRedemption_340x440
-    DieselStoreFrontTall
-    DieselStoreFrontWide
+  OfferImageTall
+  OfferImageWide
+  Thumbnail
+  CodeRedemption_340x440
+  DieselStoreFrontTall
+  DieselStoreFrontWide
 }
